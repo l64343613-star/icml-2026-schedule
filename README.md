@@ -1,6 +1,6 @@
 # ICML 2026 中文日程表
 
-这是一个单页静态 HTML 网站，可以直接部署到 GitHub Pages。
+这是一个单页静态 HTML 网站，可直接部署到 GitHub Pages。
 
 ## 部署方式
 
