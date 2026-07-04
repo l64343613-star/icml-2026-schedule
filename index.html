@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICML 2026 中文日程导航</title>
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --paper: rgba(255, 255, 255, 0.86);
+      --paper-solid: #ffffff;
+      --ink: #172033;
+      --muted: #657084;
+      --line: rgba(33, 55, 98, 0.13);
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --violet: #7c3aed;
+      --violet-soft: #ede9fe;
+      --teal: #0891b2;
+      --teal-soft: #cffafe;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --orange: #ea580c;
+      --orange-soft: #ffedd5;
+      --pink: #db2777;
+      --pink-soft: #fce7f3;
+      --shadow: 0 18px 50px rgba(18, 34, 70, 0.12);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(59, 130, 246, 0.20), transparent 32%),
+        radial-gradient(circle at 92% 5%, rgba(168, 85, 247, 0.18), transparent 34%),
+        linear-gradient(180deg, #eef4ff 0%, var(--bg) 42%, #f7fbff 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 34px 20px 80px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(37, 99, 235, 0.96), rgba(124, 58, 237, 0.92)),
+        url("data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='42' height='42' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 42 0 L 0 0 0 42' fill='none' stroke='white' stroke-opacity='.13' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='800' height='400' fill='url(%23grid)'/%3E%3C/svg%3E");
+      color: white;
+      border-radius: 32px;
+      padding: 42px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -90px;
+      bottom: -130px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      filter: blur(1px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.32);
+      background: rgba(255,255,255,.13);
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 14px;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.78;
+      color: rgba(255,255,255,.88);
+    }
+
+    .hero-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      padding: 11px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: white; color: #1d4ed8; box-shadow: 0 10px 24px rgba(12, 31, 84, .18); }
+    .btn.ghost { color: white; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28); }
+    .btn.soft { background: #eef4ff; color: #214a9d; border: 1px solid #d8e3ff; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 28px;
+    }
+
+    .stat {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 14px 34px rgba(18, 34, 70, 0.08);
+      backdrop-filter: blur(14px);
+    }
+    .stat .num { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; }
+    .stat .label { color: var(--muted); font-size: 13px; margin-top: 4px; line-height: 1.45; }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 0 0 24px;
+      padding: 12px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.88);
+      box-shadow: 0 10px 30px rgba(18, 34, 70, 0.10);
+      backdrop-filter: blur(16px);
+    }
+
+    .toolbar-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab {
+      border: 1px solid var(--line);
+      background: white;
+      color: #24324b;
+      border-radius: 999px;
+      padding: 10px 13px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+    .tab.active, .tab:hover {
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--violet));
+      box-shadow: 0 8px 18px rgba(37, 99, 235, .24);
+    }
+
+    .tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .search {
+      width: min(280px, 72vw);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 14px;
+      outline: none;
+      color: var(--ink);
+      background: white;
+      font-size: 14px;
+    }
+    .search:focus { border-color: rgba(37,99,235,.56); box-shadow: 0 0 0 4px rgba(37,99,235,.10); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .day {
+      scroll-margin-top: 96px;
+      margin-bottom: 28px;
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 30px;
+      box-shadow: 0 12px 40px rgba(18, 34, 70, 0.08);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .day-head {
+      padding: 24px 26px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.46));
+    }
+
+    .day-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .date-badge {
+      min-width: 70px;
+      text-align: center;
+      border-radius: 20px;
+      padding: 10px 8px;
+      background: linear-gradient(135deg, var(--blue), var(--violet));
+      color: white;
+      box-shadow: 0 12px 24px rgba(37,99,235,.25);
+    }
+    .date-badge strong { display: block; font-size: 22px; line-height: 1; }
+    .date-badge span { display: block; font-size: 12px; opacity: .88; margin-top: 4px; }
+
+    .day h2 { margin: 0; font-size: 24px; letter-spacing: -0.02em; }
+    .day .desc { margin-top: 6px; color: var(--muted); line-height: 1.55; }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .tag-main { color: #1d4ed8; background: var(--blue-soft); }
+    .tag-tutorial { color: #6d28d9; background: var(--violet-soft); }
+    .tag-workshop { color: #0e7490; background: var(--teal-soft); }
+    .tag-social { color: #be185d; background: var(--pink-soft); }
+    .tag-poster { color: #15803d; background: var(--green-soft); }
+    .tag-expo { color: #c2410c; background: var(--orange-soft); }
+
+    .timeline { padding: 10px 22px 24px; }
+
+    .event {
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .event:last-child { border-bottom: 0; }
+
+    .time {
+      font-weight: 900;
+      color: #1f2d45;
+      letter-spacing: -0.02em;
+      padding-top: 4px;
+    }
+    .time small { display: block; color: var(--muted); font-weight: 700; font-size: 12px; margin-top: 4px; }
+
+    .event-card {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(18, 34, 70, 0.05);
+    }
+
+    .event-top { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .01em;
+    }
+    .pill.main { color: #1d4ed8; background: var(--blue-soft); }
+    .pill.tutorial { color: #6d28d9; background: var(--violet-soft); }
+    .pill.poster { color: #15803d; background: var(--green-soft); }
+    .pill.social { color: #be185d; background: var(--pink-soft); }
+    .pill.workshop { color: #0e7490; background: var(--teal-soft); }
+    .pill.expo { color: #c2410c; background: var(--orange-soft); }
+    .pill.affinity { color: #7e22ce; background: #f3e8ff; }
+    .pill.custom { color: #475569; background: #f1f5f9; }
+
+    .event-card h3 { margin: 0; font-size: 17px; line-height: 1.38; }
+    .event-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.65; }
+    .place { margin-top: 10px; color: #334155; font-size: 13px; font-weight: 800; }
+    .place::before { content: "📍 "; }
+
+    .mini-list {
+      margin: 10px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .mini-list span {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .side {
+      position: sticky;
+      top: 96px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,.82);
+      border-radius: 28px;
+      box-shadow: 0 12px 36px rgba(18, 34, 70, 0.08);
+      padding: 20px;
+      backdrop-filter: blur(14px);
+    }
+    .panel h3 { margin: 0 0 10px; font-size: 17px; }
+    .panel p, .panel li { color: var(--muted); line-height: 1.65; font-size: 14px; }
+    .panel ul { margin: 10px 0 0; padding-left: 19px; }
+
+    .strategy-card {
+      border: 1px dashed rgba(37,99,235,.34);
+      background: rgba(239,246,255,.62);
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+    .strategy-card strong { display: block; margin-bottom: 4px; }
+
+    .sources {
+      margin-top: 24px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,255,255,.86);
+      border-radius: 28px;
+      padding: 22px;
+      color: var(--muted);
+      line-height: 1.7;
+      box-shadow: 0 12px 36px rgba(18, 34, 70, 0.06);
+    }
+    .sources h3 { margin: 0 0 8px; color: var(--ink); }
+    .sources a { color: #1d4ed8; font-weight: 700; text-decoration: none; }
+    .sources a:hover { text-decoration: underline; }
+
+    .hidden { display: none !important; }
+    mark { background: #fef3c7; color: inherit; padding: 0 2px; border-radius: 4px; }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero { padding: 30px; }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 18px 12px 56px; }
+      .hero { border-radius: 24px; padding: 24px; }
+      .stats { grid-template-columns: 1fr; }
+      .day-head { flex-direction: column; padding: 20px; }
+      .timeline { padding: 6px 16px 20px; }
+      .event { grid-template-columns: 1fr; gap: 8px; }
+      .time { display: flex; gap: 8px; align-items: baseline; }
+      .toolbar { border-radius: 20px; }
+      .tools { width: 100%; }
+      .search { flex: 1; width: 100%; }
+    }
+
+    @media print {
+      body { background: white; }
+      .hero, .toolbar, .side .panel:first-child, .hero-actions { box-shadow: none; }
+      .toolbar, .btn, .search { display: none !important; }
+      .page { max-width: none; padding: 0; }
+      .layout { display: block; }
+      .side { display: none; }
+      .day { break-inside: avoid; box-shadow: none; border: 1px solid #d9dee8; }
+      .event-card { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="eyebrow">🇰🇷 Seoul · COEX · KST UTC+9</div>
+      <h1>ICML 2026<br/>中文日程导航</h1>
+      <p>按官方日程结构整理的中文参会日历：7 月 6 日 Tutorial / Expo，7 月 7–9 日 Main Conference，7 月 10–11 日 Workshops。页面默认显示韩国时间，可一键切换为新加坡 / 北京时间。</p>
+      <div class="hero-actions">
+        <button class="btn primary" onclick="document.querySelector('#d1').scrollIntoView()">从 7/6 开始看</button>
+        <button class="btn ghost" id="tzBtn">切换为新加坡/北京时间</button>
+        <button class="btn ghost" onclick="window.print()">打印 / 保存 PDF</button>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="ICML 2026 summary">
+      <div class="stat"><div class="num">6 天</div><div class="label">2026 年 7 月 6–11 日</div></div>
+      <div class="stat"><div class="num">3 天</div><div class="label">主会：7 月 7–9 日</div></div>
+      <div class="stat"><div class="num">8 场</div><div class="label">主会 Poster Sessions，Hall A</div></div>
+      <div class="stat"><div class="num">44+</div><div class="label">后两天 Workshops + Affinity events</div></div>
+    </section>
+
+    <nav class="toolbar" aria-label="Schedule navigation">
+      <div class="toolbar-row">
+        <div class="tabs">
+          <button class="tab active" data-target="all">全部</button>
+          <button class="tab" data-target="d1">7/6 教程/Expo</button>
+          <button class="tab" data-target="d2">7/7 主会 D1</button>
+          <button class="tab" data-target="d3">7/8 主会 D2</button>
+          <button class="tab" data-target="d4">7/9 主会 D3</button>
+          <button class="tab" data-target="d5">7/10 Workshop</button>
+          <button class="tab" data-target="d6">7/11 Workshop</button>
+        </div>
+        <div class="tools">
+          <input class="search" id="search" placeholder="搜索：poster / oral / workshop / social" />
+          <button class="btn soft" id="clearBtn">清空</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="layout">
+      <section class="schedule">
+        <article class="day" id="d1" data-day="d1">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/6</strong><span>周一</span></div>
+              <div>
+                <h2>Tutorial / Expo Day</h2>
+                <div class="desc">适合快速建立会议知识框架：白天听 tutorials / expo，晚上参加 socials 建立连接。</div>
+              </div>
+            </div>
+            <span class="tagline tag-tutorial">教程 + Expo</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="expo apple video tokenization">
+              <div class="time" data-start="08:00" data-end="09:00">08:00–09:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill expo">Expo Talk</span></div>
+                <h3>Apple Expo Talk：VideoFlexTok</h3>
+                <p>Flexible-Length Coarse-to-Fine Video Tokenization。适合作为早场热身，了解视频 tokenization / multimodal 相关方向。</p>
+                <div class="place">Auditorium</div>
+              </div>
+            </div>
+            <div class="event" data-tags="tutorial lean llm theorem proving diffusion sequence prediction unlearning calibration optimization">
+              <div class="time" data-start="09:00" data-end="16:00">全天并行<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill tutorial">Tutorials</span><span class="pill custom">择一深听</span></div>
+                <h3>ICML 2026 Tutorials：建议选 1–2 个主题深听</h3>
+                <p>官方公布的 tutorial 主题覆盖 Lean / theorem proving、数学 Copilot、LLM post-training & test-time learning、sequence prediction、attention-diffusion 统一、unlearning、diffusion & flow-matching 等。</p>
+                <div class="mini-list">
+                  <span>Lean + ML</span><span>Math Copilot</span><span>Adaptive Reasoning</span><span>Spectral Filtering</span><span>Unlearning</span><span>Diffusion / Flow Matching</span>
+                </div>
+              </div>
+            </div>
+            <div class="event" data-tags="expo google ai scientist robotics forecasting agentic">
+              <div class="time" data-start="11:30" data-end="19:00">11:30–19:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill expo">Expo</span></div>
+                <h3>Expo Talks / Demos / Workshop</h3>
+                <p>包括 The End-to-End AI Scientist、3D Modeling for Robotics、Agentic Forecasting and Multi-Agent Ecosystems 等 sponsor/expo 活动。适合穿插在 tutorial 间隙去看。</p>
+                <div class="place">Hall D2 / Grand Ballroom Foyer 等</div>
+              </div>
+            </div>
+            <div class="event" data-tags="social networking chess india games ai co-scientists">
+              <div class="time" data-start="19:00" data-end="21:00">19:00–21:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill social">Socials</span></div>
+                <h3>Monday Socials：轻松认识人</h3>
+                <p>四个主题：AI Co-scientists、ICML Chess Club、India @ ICML、AI for Games。第一天晚上非常适合破冰和建立后续约饭/讨论机会。</p>
+                <div class="place">ASEM Ballroom 201-203 / Room 300 / Room E1-E4 / Room E5-E6</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day" id="d2" data-day="d2">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/7</strong><span>周二</span></div>
+              <div>
+                <h2>Main Conference Day 1</h2>
+                <div class="desc">主会第一天：重点是 Oral 1、Poster Session 1/2、Sponsor Hall 和 affinity event。</div>
+              </div>
+            </div>
+            <span class="tagline tag-main">主会 D1</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="affinity latinx lxai workshop mentor hour">
+              <div class="time" data-start="08:00" data-end="17:00">08:00–17:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill affinity">Affinity</span></div>
+                <h3>LatinX in AI（LXAI）</h3>
+                <p>主会期间并行的 affinity workshop。若你希望扩大 community network，可在 poster / oral 之外抽时间参加。</p>
+                <div class="place">Room 300</div>
+              </div>
+            </div>
+            <div class="event" data-tags="oral llm adaptation dataset selection main conference">
+              <div class="time" data-start="10:00" data-end="10:30">10:00–10:30<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill main">Oral</span></div>
+                <h3>Oral Session 1：LLM Adaptation / Dataset Selection 等</h3>
+                <p>早场 Oral 适合先把今天最重要的工作扫一遍。若你只想高效参会，建议 Oral 先听主题，再去对应 poster 深聊。</p>
+                <div class="place">Hall B2 / Hall C 等多会场</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 1 hall a papers">
+              <div class="time" data-start="10:30" data-end="12:15">10:30–12:15<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 1</span></div>
+                <h3>Poster Session 1</h3>
+                <p>主会第一场 poster。建议提前在官方日历收藏 5–8 篇必看论文，现场优先看 oral / spotlight，再看同方向新工作。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="exhibit sponsor hall booth recruitment industry">
+              <div class="time" data-start="11:00" data-end="19:00">11:00–19:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill expo">Sponsor Hall</span></div>
+                <h3>Exhibit Sponsor Hall</h3>
+                <p>第一天 Sponsor Hall 开到 19:00。可安排中午或 poster 间隙去 booth、demo、recruiting 区域。</p>
+                <div class="place">Exhibition Hall / Hall B1 一带</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 2 hall a papers">
+              <div class="time" data-start="14:00" data-end="15:45">14:00–15:45<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 2</span></div>
+                <h3>Poster Session 2</h3>
+                <p>下午主 poster。建议用“15 分钟快速浏览 + 45 分钟深聊 + 30 分钟补漏”的节奏。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="social wiml affinity women in machine learning">
+              <div class="time" data-start="19:00" data-end="22:00">19:00–22:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill social">Affinity Social</span></div>
+                <h3>Women in Machine Learning Social</h3>
+                <p>WiML 相关社交活动。若报名/注册条件满足，可以作为主会第一天晚上的 networking 选择。</p>
+                <div class="place">Grand Mercure Imperial Palace Seoul</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day" id="d3" data-day="d3">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/8</strong><span>周三</span></div>
+              <div>
+                <h2>Main Conference Day 2</h2>
+                <div class="desc">主会最密集的一天：Poster 3/4/5，Sponsor Hall 全天，晚上官方 Socials。</div>
+              </div>
+            </div>
+            <span class="tagline tag-main">主会 D2</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="affinity women machine learning wiml symposium mentorship">
+              <div class="time" data-start="08:00" data-end="17:00">08:00–17:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill affinity">Affinity</span></div>
+                <h3>Women in Machine Learning Symposium</h3>
+                <p>WiML Symposium 与主会并行。若你对 mentorship / community 活动感兴趣，可在 poster session 间隙安排。</p>
+                <div class="place">Room E1–E4</div>
+              </div>
+            </div>
+            <div class="event" data-tags="exhibit sponsor hall booth demo google apple">
+              <div class="time" data-start="09:00" data-end="18:00">09:00–18:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill expo">Sponsor Hall</span></div>
+                <h3>Exhibit Sponsor Hall</h3>
+                <p>第二天 Sponsor Hall 全天开放。可重点看与你研究相关的大厂 demo、招聘和研究展示。</p>
+                <div class="place">Exhibition Hall / Hall B1 一带</div>
+              </div>
+            </div>
+            <div class="event" data-tags="oral peer review mechanism design main conference">
+              <div class="time" data-start="10:00" data-end="10:30">10:00–10:30<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill main">Oral</span></div>
+                <h3>Oral Session 3：多主题并行</h3>
+                <p>包含 Peer Review & Mechanism Design 等方向的 oral。建议根据自己的研究方向在多个会场间取舍。</p>
+                <div class="place">Grand Ballroom / Hall 等多会场</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 3 hall a papers">
+              <div class="time" data-start="10:30" data-end="12:15">10:30–12:15<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 3</span></div>
+                <h3>Poster Session 3</h3>
+                <p>上午 poster。建议优先看与你 poster/论文方向相近的工作，方便互相引流和交流。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 4 hall a papers">
+              <div class="time" data-start="14:30" data-end="16:15">14:30–16:15<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 4</span></div>
+                <h3>Poster Session 4</h3>
+                <p>下午第一场 poster。与 17:00 的 Poster Session 5 连续，建议中间留出补水和休息。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 5 hall a papers">
+              <div class="time" data-start="17:00" data-end="18:45">17:00–18:45<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 5</span></div>
+                <h3>Poster Session 5</h3>
+                <p>傍晚 poster。可以重点安排“深聊型”论文，因为之后就是 socials，适合顺势继续交流。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="social networking robot learning open source data foundations">
+              <div class="time" data-start="19:00" data-end="21:00">19:00–21:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill social">Socials</span></div>
+                <h3>Wednesday Socials</h3>
+                <p>主题包括：How to Network at an AI Conference、Robot Learning Social、ML Open-Source Community、Data Foundations of AI Social。</p>
+                <div class="place">ASEM Ballroom / Room 300 / Room E1–E6</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day" id="d4" data-day="d4">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/9</strong><span>周四</span></div>
+              <div>
+                <h2>Main Conference Day 3</h2>
+                <div class="desc">主会最后一天：Invited Talk、Poster 6/7/8、最后一轮 sponsor 和 evening socials。</div>
+              </div>
+            </div>
+            <span class="tagline tag-main">主会 D3</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="invited talk verena rieser agency alignment safety">
+              <div class="time" data-start="08:30" data-end="09:30">08:30–09:30<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill main">Invited Talk</span></div>
+                <h3>From Behavioral Guardrails to Principled Agency</h3>
+                <p>Verena Rieser 的 invited talk。主会最后一天早场，建议提前到场占位。</p>
+                <div class="place">Hall C</div>
+              </div>
+            </div>
+            <div class="event" data-tags="exhibit sponsor hall booth demo closing">
+              <div class="time" data-start="09:00" data-end="18:00">09:00–18:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill expo">Sponsor Hall</span></div>
+                <h3>Exhibit Sponsor Hall：最后一天</h3>
+                <p>如果还没去 sponsor booth / recruiting 区域，周四是主会最后机会。</p>
+                <div class="place">Exhibition Hall / Hall B1 一带</div>
+              </div>
+            </div>
+            <div class="event" data-tags="oral llm training inference efficiency main conference">
+              <div class="time" data-start="10:00" data-end="10:45">10:00–10:45<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill main">Oral</span></div>
+                <h3>Oral Session 5：LLM Training / Inference Efficiency 等</h3>
+                <p>适合关注大模型训练、推理效率、tokenizer、系统与理论方向的参会者。</p>
+                <div class="place">Hall C 等多会场</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 6 hall a papers">
+              <div class="time" data-start="10:30" data-end="12:15">10:30–12:15<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 6</span></div>
+                <h3>Poster Session 6</h3>
+                <p>上午 poster。周四人可能更集中，建议提前列出必看清单。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 7 hall a papers">
+              <div class="time" data-start="14:30" data-end="16:15">14:30–16:15<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 7</span></div>
+                <h3>Poster Session 7</h3>
+                <p>下午 poster。适合把前两天 missed 的相关工作补齐。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="oral llm transformers gnn theory main conference">
+              <div class="time" data-start="16:00" data-end="16:45">16:00–16:45<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill main">Oral</span></div>
+                <h3>Oral Session 6：LLMs / Theory / Transformers & GNNs 等</h3>
+                <p>下午 oral 与 poster 前后相接。建议选择一条主线，不要频繁换会场。</p>
+                <div class="place">Auditorium / Hall C / ASEM Ballroom 等</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster session 8 hall a papers">
+              <div class="time" data-start="17:00" data-end="18:45">17:00–18:45<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill poster">Poster Session 8</span></div>
+                <h3>Poster Session 8</h3>
+                <p>主会最后一场 poster。适合收尾：交换联系方式、约后续线上讨论、整理后续阅读清单。</p>
+                <div class="place">Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="social compensation muslim ml decentralized training cooperative ai">
+              <div class="time" data-start="19:00" data-end="21:00">19:00–21:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill social">Socials</span></div>
+                <h3>Thursday Socials</h3>
+                <p>主题包括：AI Negotiation and Compensation、Muslims in ML、Collective Decentralized Training、Cooperative AI。</p>
+                <div class="place">ASEM Ballroom / Room 300 / Room E1–E6</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day" id="d5" data-day="d5">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/10</strong><span>周五</span></div>
+              <div>
+                <h2>Workshops Day 1</h2>
+                <div class="desc">后会议 workshop 第一天：8:00 左右开始，通常持续到 17:00 左右。建议只选 1 个主 workshop 深度参加。</div>
+              </div>
+            </div>
+            <span class="tagline tag-workshop">Workshops D1</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="workshop continual adaptation graph mechinterp rlxf scale trustworthy ai governance audio biology">
+              <div class="time" data-start="08:00" data-end="17:00">08:00–17:00<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill workshop">Workshops</span></div>
+                <h3>并行 Workshops：选择一条主线深入</h3>
+                <p>公开日程中可见的主题包括 Continual Adaptation、Graph Foundation Models、Mechanistic Interpretability、RLxF、SCALE、Trustworthy AI for Good、Weight-Space Symmetries、AI for Math/CS/ML、Deep Generative Models、ML for Audio、Generative & Agentic AI for Biology、Technical AI Governance、Culture × AI、Epistemic Intelligence 等。</p>
+                <div class="mini-list">
+                  <span>MechInterp</span><span>Continual Adaptation</span><span>RLxF</span><span>AI Governance</span><span>Generative Models</span><span>AI for Biology</span>
+                </div>
+                <div class="place">COEX 多会场，workshop poster 通常在 Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="poster pickup workshop authors hall a">
+              <div class="time" data-start="07:30" data-end="12:30">07:30–12:30<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill custom">作者提醒</span></div>
+                <h3>Workshop Poster / Pick-up 窗口</h3>
+                <p>若你有 workshop poster，注意官方 poster pick-up 时段以及 workshop poster 必须使用竖版尺寸限制。</p>
+                <div class="place">Hall B2 East Gate 附近 / Hall A 等</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day" id="d6" data-day="d6">
+          <div class="day-head">
+            <div class="day-title">
+              <div class="date-badge"><strong>7/11</strong><span>周六</span></div>
+              <div>
+                <h2>Workshops Day 2</h2>
+                <div class="desc">最后一天 workshops：适合收尾、找合作、集中补齐某个方向的最新讨论。</div>
+              </div>
+            </div>
+            <span class="tagline tag-workshop">Workshops D2</span>
+          </div>
+          <div class="timeline">
+            <div class="event" data-tags="workshop ai physics ai science forecasting philosophy agentic uncertainty compositional learning life sciences health memorization structured data hypothesis pluralistic alignment">
+              <div class="time" data-start="08:00" data-end="17:30">08:00–17:30<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill workshop">Workshops</span></div>
+                <h3>并行 Workshops：科学、可靠性、对齐、健康与结构化数据</h3>
+                <p>公开日程中可见的主题包括 AI for Physics、AI for Science、Efficient Multimodal QA、Forecasting、Philosophy Meets ML、Agentic Uncertainty、Compositional Learning、Life Sciences、Structured Data for Health、Memorization、Foundation Models for Structured Data、Hypothesis Testing、Pluralistic Alignment 等。</p>
+                <div class="mini-list">
+                  <span>AI4Science</span><span>Forecasting</span><span>Agentic Uncertainty</span><span>Compositional Learning</span><span>Health</span><span>Alignment</span>
+                </div>
+                <div class="place">COEX 多会场，workshop poster 通常在 Hall A</div>
+              </div>
+            </div>
+            <div class="event" data-tags="wrap up travel summary networking follow up">
+              <div class="time" data-start="17:30" data-end="18:30">17:30 之后<small>KST</small></div>
+              <div class="event-card">
+                <div class="event-top"><span class="pill custom">收尾建议</span></div>
+                <h3>整理 follow-up 清单</h3>
+                <p>把一周内遇到的人、感兴趣论文、后续合作点整理成 3 类：必须读、可以约、以后关注。会议结束后一周内发 follow-up 邮件效果最好。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <aside class="side">
+        <section class="panel">
+          <h3>高效参会策略</h3>
+          <ul>
+            <li><strong>Poster 前：</strong>每天早上先在官方日历收藏必看论文，控制在 5–8 篇。</li>
+            <li><strong>Poster 中：</strong>先问 “What is the core idea in 30 seconds?”，再决定是否深聊。</li>
+            <li><strong>Oral 后：</strong>优先去对应 poster，作者通常最愿意继续解释细节。</li>
+            <li><strong>晚上：</strong>Socials 比大 poster hall 更适合长交流。</li>
+          </ul>
+          <div class="strategy-card" contenteditable="true">
+            <strong>我的自定义重点：</strong>
+            在这里填自己的 poster session、想见的人、必看论文编号。这个框可以直接编辑。
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>时间换算</h3>
+          <p>韩国时间 KST = UTC+9。新加坡 / 北京时间 = UTC+8，比韩国慢 1 小时。</p>
+          <p>例如：10:30 KST = 09:30 新加坡 / 北京时间。</p>
+        </section>
+
+        <section class="panel">
+          <h3>注意</h3>
+          <p>ICML 官方 virtual calendar 是最终准确信息。本页面是中文导航版，适合规划，不替代官方页面。具体会场、论文编号和临时变更请以官方日历/App为准。</p>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="sources">
+      <h3>数据来源与核对</h3>
+      <p>本页面依据 ICML 2026 官方 Dates 页面、官方 Tutorials / Invited Talks / Workshops / Socials 博客，以及 Apple / Google / Microsoft 的 ICML 2026 公开日程页整理。官方日历入口：<a href="https://icml.cc/virtual/2026/calendar?filter_events=&filter_rooms=" target="_blank" rel="noreferrer">icml.cc/virtual/2026/calendar</a>。</p>
+      <p>页面生成日期：2026-07-04。建议出发前和每天早上再次核对官方 App / 官方 calendar。</p>
+    </footer>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const days = document.querySelectorAll('.day');
+    const search = document.querySelector('#search');
+    const clearBtn = document.querySelector('#clearBtn');
+    const tzBtn = document.querySelector('#tzBtn');
+    let tzMode = 'KST';
+
+    function setActiveTab(target) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
+      if (target === 'all') {
+        days.forEach(d => d.classList.remove('hidden'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        days.forEach(d => d.classList.toggle('hidden', d.dataset.day !== target));
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      filterEvents();
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => setActiveTab(tab.dataset.target));
+    });
+
+    function filterEvents() {
+      const q = search.value.trim().toLowerCase();
+      const events = document.querySelectorAll('.event');
+      events.forEach(ev => {
+        const text = ev.innerText.toLowerCase() + ' ' + (ev.dataset.tags || '').toLowerCase();
+        ev.classList.toggle('hidden', q && !text.includes(q));
+      });
+    }
+
+    search.addEventListener('input', filterEvents);
+    clearBtn.addEventListener('click', () => {
+      search.value = '';
+      filterEvents();
+      search.focus();
+    });
+
+    function convertTime(t, deltaHours) {
+      if (!/^\d{2}:\d{2}$/.test(t)) return t;
+      const [h, m] = t.split(':').map(Number);
+      const shifted = (h + deltaHours + 24) % 24;
+      return String(shifted).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+    }
+
+    function updateTimes() {
+      const delta = tzMode === 'KST' ? 0 : -1;
+      document.querySelectorAll('.time').forEach(el => {
+        const s = el.dataset.start;
+        const e = el.dataset.end;
+        const small = el.querySelector('small');
+        if (s && e && /^\d{2}:\d{2}$/.test(s) && /^\d{2}:\d{2}$/.test(e)) {
+          el.childNodes[0].textContent = `${convertTime(s, delta)}–${convertTime(e, delta)}`;
+        } else if (s && /^\d{2}:\d{2}$/.test(s) && !e) {
+          el.childNodes[0].textContent = convertTime(s, delta);
+        }
+        if (small) small.textContent = tzMode;
+      });
+      tzBtn.textContent = tzMode === 'KST' ? '切换为新加坡/北京时间' : '切回韩国时间 KST';
+    }
+
+    tzBtn.addEventListener('click', () => {
+      tzMode = tzMode === 'KST' ? 'SGT/CST' : 'KST';
+      updateTimes();
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      if (search.value.trim()) return;
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.target === visible.target.id));
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: [0.05, 0.2, 0.5] });
+    days.forEach(day => observer.observe(day));
+
+    updateTimes();
+  </script>
+</body>
+</html>
